@@ -1,0 +1,11 @@
+# Configure this only for the current repository
+git config http.cookieFile snowflake_git_cookies.txt
+
+# Or configure it globally (if this machine is only for this project)
+# git config --global http.cookieFile /path/to/snowflake_git_cookies.txt
+
+
+
+git config --unset http.cookieFile
+
+git config --global --unset http.cookieFile

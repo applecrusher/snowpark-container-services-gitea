@@ -1,0 +1,12 @@
+
+docker login XXXXXXX-XXXXXXX.registry.snowflakecomputing.com/gitea_db/public/image_repo -u GITEA_SERVICE_USER
+
+
+docker pull --platform linux/amd64 postgres:15
+docker tag postgres:15 XXXXXXX-XXXXXXX.registry.snowflakecomputing.com/gitea_db/public/image_repo/postgres:15
+docker push XXXXXXX-XXXXXXX.registry.snowflakecomputing.com/gitea_db/public/image_repo/postgres:15
+
+
+docker pull --platform linux/amd64 gitea/gitea:latest
+docker tag gitea/gitea:latest XXXXXXX-XXXXXXX.registry.snowflakecomputing.com/gitea_db/public/image_repo/gitea:latest
+docker push XXXXXXX-XXXXXXX.registry.snowflakecomputing.com/gitea_db/public/image_repo/gitea:latest

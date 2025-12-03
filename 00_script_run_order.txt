@@ -1,0 +1,20 @@
+1) Login to your snowflake account
+2) Ensure you have a network rule
+3) Run Script 01_setup.sql
+4) Generate a private/public key pair and add it to the GITEA_SERVICE_USER in 02_setup_stages.sql
+5) Modify your network rule in 03_create_rules_and_access.sql properly to your desired configuration.
+6) Run Script 03_setup.sql
+7) Replace the docker_commands.txt XXXXXXX.XXXXXXX to what account identifier (https://docs.snowflake.com/en/user-guide/admin-account-identifier) which for AWS is Data sharing account identifier in account details section
+8) Run the docker commands in docker_commands.txt
+9) Replace the docker_commands.txt XXXXXXX.XXXXXXX to what account identifier in gitea.yml
+10) Upload, using the UI, the gitea.yml file to the stage GITEA_DB.PUBLIC.SPECS
+11) Run the 04_create_service.sql command
+12) Ensure that the services are up using commands in the 05_view_services.sql file
+13) The show endpoints command in the 5_view_services.sql file is where you login
+14) Add the endpoint to the gieta_alter.yaml script and add that to the spec stage. 
+15) Run the 06_alter_service.sql file
+16) Login to the service (gitea) and fill out the information for setup. 
+17) run the login.py and follow the instructions. Close browser and click enter when done
+18) Run the git cookie command 
+19) You should be all connected and all set using gitea with git command. If you want to suspend the service, take a look at 09_optional_alters.sql
+

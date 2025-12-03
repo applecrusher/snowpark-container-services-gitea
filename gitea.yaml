@@ -1,0 +1,45 @@
+spec:
+  containers:
+    # --- Container 1: The Database ---
+    - name: postgres-db
+      image: XXXXXXX-XXXXXXX.registry.snowflakecomputing.com/gitea_db/public/image_repo/postgres:15
+      env:
+        POSTGRES_USER: "gitea_user"
+        POSTGRES_PASSWORD: "secure_password_123"
+        POSTGRES_DB: "gitea_db"
+        PGDATA: /var/lib/postgresql/data/pgdata
+      volumeMounts:
+        - name: vol-postgres
+          mountPath: /var/lib/postgresql/data
+
+    # --- Container 2: The Gitea Frontend ---
+    - name: gitea-app
+      image: XXXXXXX-XXXXXXX.registry.snowflakecomputing.com/gitea_db/public/image_repo/gitea:latest
+      env:
+        GITEA__database__DB_TYPE: "postgres"
+        GITEA__database__HOST: "localhost:5432"
+        GITEA__database__NAME: "gitea_db"
+        GITEA__database__USER: "gitea_user"
+        GITEA__database__PASSWD: "secure_password_123"
+        # Placeholder URL - Update this after deployment!
+        GITEA__server__ROOT_URL: "https://placeholder.snowflakecomputing.app"
+      volumeMounts:
+        - name: vol-gitea
+          mountPath: /data
+
+  endpoints:
+    - name: web
+      port: 3000
+      public: true
+
+  volumes:
+    - name: vol-postgres
+      source: block
+      size: 10Gi
+      uid: 999
+      gid: 999
+    - name: vol-gitea
+      source: block
+      size: 50Gi
+      uid: 1000
+      gid: 1000

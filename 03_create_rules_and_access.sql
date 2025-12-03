@@ -1,0 +1,34 @@
+
+USE ROLE GITEA_SERVICE_ROLE;
+
+
+USE DATABASE GITEA_DB;
+
+--You can make this specific to your snowflake connection you want to make
+--The connection should be something like XXXXXXX-XXXXXXX.snowflakecomputing.com
+--You only need access to port 443 gitea
+CREATE OR REPLACE NETWORK RULE GITEA_NETWORK_RULE
+  MODE = EGRESS
+  TYPE = HOST_PORT
+  VALUE_LIST = (
+    '0.0.0.0:443'
+  );
+
+CREATE EXTERNAL ACCESS INTEGRATION GITEA_EXTERNAL_ACCESS
+ALLOWED_NETWORK_RULES = ( GITEA_NETWORK_RULE )
+ENABLED = TRUE;
+
+
+
+
+--You may need to add this if you get permission issues
+USE ROLE ACCOUNTADMIN;
+
+GRANT USAGE ON DATABASE GITEA_DB TO ROLE GITEA_SERVICE_ROLE;
+
+GRANT USAGE ON ALL SCHEMAS IN DATABASE GITEA_DB TO ROLE GITEA_SERVICE_ROLE;
+
+
+
+
+
